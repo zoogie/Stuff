@@ -1,0 +1,101 @@
+#SUDOject
+
+set PREVIEW_MODE "<>SUDOject<>\nchecking files..."
+goto checkfiles
+@return_checkfiles
+set PREVIEW_MODE "<>SUDOject<>\ngetting write permissions..."
+allow 2:/title/00030005/484E4441/*
+allow 2:/title/00030005/42383841/*
+
+@main
+goto checkinstalled
+@return_checkinstalled
+labelsel -o -s "Choose an option:" sudopt_*
+goto main
+
+@sudopt_Install_Sudokuhax_to_DSdownload
+mkdir 2:/title/00030005/484E4441/data
+cp -w 0:/gm9/in/SUDOject/game_usa.app 2:/title/00030005/484E4441/content/00000000.app
+cp -w 0:/gm9/in/SUDOject/public_usa.sav 2:/title/00030005/484E4441/data/public.sav
+goto main
+
+@sudopt_Install_Sudokuhax_to_DSinternet
+mkdir 2:/title/00030005/42383841/data
+cp -w 0:/gm9/in/SUDOject/game_usa.app 2:/title/00030005/42383841/content/00000002.app
+cp -w 0:/gm9/in/SUDOject/public_usa.sav 2:/title/00030005/42383841/data/public.sav
+goto main
+
+@sudopt_Restore_DSdownload
+cp -w 0:/gm9/in/SUDOject/00000000.app 2:/title/00030005/484E4441/content/00000000.app
+rm -o -s 2:/title/00030005/484E4441/data
+goto main
+
+@sudopt_Restore_DSinternet
+cp -w 0:/gm9/in/SUDOject/00000002.app 2:/title/00030005/42383841/content/00000002.app
+rm -o -s 2:/title/00030005/42383841/data
+goto main
+
+@checkfiles
+if not exist 0:/gm9/in/SUDOject/00000000.app
+	if sha 2:/title/00030005/484E4441/content/00000000.app 2d63b05e731514a31b8c740eefa7698b5aa6e06d86258df15d7988e24935bcd3
+		cp 2:/title/00030005/484E4441/content/00000000.app 0:/gm9/in/SUDOject/00000000.app
+	end
+end
+if not exist 0:/gm9/in/SUDOject/00000002.app
+	if sha 2:/title/00030005/42383841/content/00000002.app 2050491c34883b892aafbc26ccee9232815721b2cf009fc399d9fb337b2a7468
+		cp 2:/title/00030005/42383841/content/00000002.app 0:/gm9/in/SUDOject/00000002.app
+	end
+end
+set FAIL "0"
+if not sha 0:/gm9/in/SUDOject/00000000.app 2d63b05e731514a31b8c740eefa7698b5aa6e06d86258df15d7988e24935bcd3
+	set FAIL "1"
+end
+if not sha 0:/gm9/in/SUDOject/00000002.app 2050491c34883b892aafbc26ccee9232815721b2cf009fc399d9fb337b2a7468
+	set FAIL "1"
+end
+if not sha 0:/gm9/in/SUDOject/game_usa.app 7fa1dec2ea4ccb614c04c8b24509f18be94caf8409900ecd29e9d7f82303ae9f
+	set FAIL "1"
+end
+if not sha 0:/gm9/in/SUDOject/public_usa.sav 72a321ff306b374a80ebd98aed89fc922bf1a9ec9d5f595c92de849cb4b7930f
+	set FAIL "1"
+end
+if chk $[FAIL] "1"
+	echo "4 SD prep files not prepared! Die!"
+	goto sudopt_Exit
+end
+goto return_checkfiles
+
+@checkinstalled
+if sha 2:/title/00030005/484E4441/content/00000000.app 2d63b05e731514a31b8c740eefa7698b5aa6e06d86258df15d7988e24935bcd3
+	set DLP "1"
+else
+	set DLP "0"
+end
+if sha 2:/title/00030005/42383841/content/00000002.app 2050491c34883b892aafbc26ccee9232815721b2cf009fc399d9fb337b2a7468
+	set INT "1"
+else
+	set INT "0"
+end
+if chk $[DLP] "1"
+	if chk $[INT] "1"
+		set PREVIEW_MODE "<>SUDOject<>\n \nDSdownload: unaltered\nDSinternet: unaltered"
+	end
+end
+if chk $[DLP] "1"
+	if chk $[INT] "0"
+		set PREVIEW_MODE "<>SUDOject<>\n \nDSdownload: unaltered\nDSinternet: sudokuhax"
+	end
+end
+if chk $[DLP] "0"
+	if chk $[INT] "1"
+		set PREVIEW_MODE "<>SUDOject<>\n \nDSdownload: sudokuhax\nDSinternet: unaltered"
+	end
+end
+if chk $[DLP] "0"
+	if chk $[INT] "0"
+		set PREVIEW_MODE "<>SUDOject<>\n \nDSdownload: sudokuhax\nDSinternet: sudokuhax"
+	end
+end
+goto return_checkinstalled
+
+@sudopt_Exit
