@@ -1,0 +1,15 @@
+    File: usm.bin
+  CRC-32: 63011aa9
+     MD5: 324598a3e133b848fac9b5110c01360d
+   SHA-1: c4564a5da3dc4bb110bb235970ffa6eddbc9317d
+ SHA-256: 385e02e3b0938446270d1db2ae8d06e16a0965f4c34b5b932bcdee1c59d23cfd
+ size: 0x20000
+ 
+    File: slotTool.3dsx
+  CRC-32: e23732f3
+     MD5: 5cc690670c304be55bf5d0a469c76a66
+   SHA-1: f1e547bb12ef405ce919f20c1b9dcb828f677662
+ SHA-256: 5257dc6c93136666c7380688ba59ca6496e719777cfc8d3cb7d9a5683e5df122
+ size: 0x2f88c
+ 
+ 
