@@ -23,3 +23,6 @@ ftpd_ctrnand.cia:
 Harder to find than bigfoot until now; this app does what it says on the tin: ftp's into ctrnand.
 Not recommended for everyday users or morons because of the obvious brick risk.
 Even if you think you're smart, only use this with ntrboot or hardmod as a backup.
+
+screencapBinMaker.py:
+This program creates the .BIN files that 3ds home menu generates when taking screenshots.
