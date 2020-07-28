@@ -26,3 +26,7 @@ Even if you think you're smart, only use this with ntrboot or hardmod as a backu
 
 screencapBinMaker.py:
 This program creates the .BIN files that 3ds home menu generates when taking screenshots.
+
+ivsdec.py
+Decrypts ivs.bin to movable.sed and vice versa.
+Special thanks to @luigoalma for figuring this one out!
